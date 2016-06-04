@@ -10,13 +10,7 @@
 
 #define ANTBCODE
 
-static char building_64_house_clinic[__TD_TR]; // weak
-
 static char map_char_to_fontGraphic[0xff]; // idb
-static char building_01_ciid[__TD_TR]; // weak
-static char building_02_byte_always0[__TD_TR]; // weak
-static char building_03_size[__TD_TR]; // weak
-static char building_04_house_isMerged[__TD_TR]; // weak
 
 static int mouseover_last_update; // weak
 static int mouseover_info_id; // idb
@@ -24,27 +18,6 @@ static int mouseover_info_id; // idb
 static char aC3_sg2[7]; // weak
 
 static C3Graphic c3_sg2[0xff];
-
-static unsigned char building__07_y[__TD_TR];
-
-static char building_0e_byte_94BD4E[__TD_TR]; // weak
-static short building_10_placedSequenceNumber[__TD_TR]; // weak
-
-static short building_14_word_94BD54[__TD_TR]; // weak
-
-static char building_3c_hasRoadAccess[__TD_TR]; // weak
-static char building_3d_byte_94BD7D[__TD_TR]; // weak
-
-static short building_42_word_94BD82[__TD_TR]; // weak
-static char building_44_byte_94BD84[__TD_TR]; // weak
-static char building_45_byte_94BD85[__TD_TR]; // weak
-static char building_46_house_taxcollector[__TD_TR]; // weak
-static short building_48_word_94BD88[__TD_TR]; // weak
-
-static short building_50_word_94BD90[__TD_TR]; // weak
-static short building_52_house_wine[__TD_TR]; // weak
-static short building_54_house_oil[__TD_TR]; // weak
-static short building_56_house_furniture[__TD_TR]; // weak
 
 static int setting_map_camera_x; // weak
 static int setting_map_camera_y; // weak
@@ -314,9 +287,9 @@ static int currentOverlay; // idb
 static int previousOverlay; // weak
 static int dword_608078; // weak
 static int dword_608080; // weak
-static int dword_608084; // weak
+static int canPlayCurrentSound; // weak
 static int dword_608094; // idb
-static int dword_608098; // idb
+static int currentWalkerGridId; // idb
 static int debug_drawNetworkInfo; // weak
 static int debug_showHappinessProsperityInfo; // weak
 static int sidepanel_collapsed; // weak
@@ -358,26 +331,7 @@ static char *input_text[0xff];
 static char wndproc_closeStatus; // weak
 static char c3mm_index[C3MM_INDEX_SIZE]; // weak
 
-static char building_65_house_bathhouse_dock_numships_entert_days[__TD_TR]; // weak
-static char building_66_house_hospital_entert_days2[__TD_TR]; // weak
-static char building_67_house_ceres[__TD_TR]; // weak
-static char building_68_house_neptune[__TD_TR]; // weak
-static char building_69_house_mercury[__TD_TR]; // weak
-static char building_6a_house_mars[__TD_TR]; // weak
-static char building_6b_house_venus[__TD_TR]; // weak
-
-static char building_6e_house_entertainment[__TD_TR]; // weak
-static char building_6f_house_education[__TD_TR]; // weak
-static char building_70_house_health[__TD_TR]; // weak
-static char building_71_house_numGods[__TD_TR]; // weak
-
 static int building_74_house_taxIncomeThisYear_senateForum_treasureStore[__TD_TR]; // weak
-
-static char building_79_byte_94BDB9[__TD_TR]; // weak
-static char building_7a_desirability[__TD_TR]; // weak
-static char building_7b_byte_94BDBB[__TD_TR]; // weak
-static char building_7c_adjacentToWater[__TD_TR]; // weak
-static char building_7f_byte_94BDBF[__TD_TR]; // idb
 
 static char current_fileExtension[32];
 
@@ -1049,6 +1003,9 @@ struct Walker
   unsigned char y;
   unsigned char x;
 
+  unsigned char byte_7FA360; //dst_x
+  unsigned char byte_7FA361; //dst_y
+
   int progressOnTile;
 
   int tilePosition_y;
@@ -1064,7 +1021,7 @@ struct Walker
   char byte_7FA3A6;
 
   int state;
-  short word_7FA38E; // weak
+  short baseWorkingBuildingId; // weak
   short formationId; // weak
   short word_7FA346;
   char byte_7FA39B;
@@ -1072,15 +1029,62 @@ struct Walker
   short tradeCaravanNextId;
   short itemCollecting;
   char byte_7FA341;
+  short migrantDestinationHome;
+  short word_7FA374;
+  short destinationpathId;
+  char byte_7FA376;
+  char lastDirection;
+  short word_7FA3B0;
+  short wlk_ID_mm;
+  short word_7FA3B4;
+  short word_7FA3B6;
+  short word_7FA372;
+  short word_7FA35E;
+
+  char cartPusherGoodType;
+  char byte_7FA39C;
+  char byte_7FA39D;
+  char byte_7FA393;
+  char reachedLastStep;
+  char maxLevelOrRiskSeen;
+  char byte_7FA3B8;
+  char byte_7FA342;
+  char byte_7FA3A5;
+  char byte_7FA3A2;
+  char isBoat;
+  char byte_7FA34D;
+  char byte_7FA39F;
+  char byte_7FA3A7;
+  char byte_7FA3A9;
+
+  short word_7FA384;
+  short wlk_ID_pp;
+  char migrantNumPeopleCarried;
+  char mood;
+  char byte_7FA389;
+  char byte_7FA3A3;
+  char byte_7FA370;
+  char ruler;
+  char simpleDirection;
+  char byte_7FA39A;
+  char byte_7FA3B9;
+  char at_dest_x;
+  char at_dest_y;
+  short word_7FA3BA;
+  short word_7FA3BC;
+  char prevActionState;
+  short destinationPathCurrent;
 };
 
-static Walker walkers[1000];
+static const int MAX_WALKERS=1000;
+static Walker walkers[MAX_WALKERS];
 
 struct Building
 {
  BuildingType type;
- int d7d_storageId;
+ int storageId;
  int x;
+ int y;
 
  unsigned char inUse;
  int house_crimeRisk;
@@ -1093,9 +1097,9 @@ struct Building
  int level_resourceId;
  int grow_value_house_foodstocks[8];
  short house_roomForPeople;
- short word_94BD5A;
+ short haveRomeroad;
  short house_maxPopEver;
- short word_94BD5E;
+ short noContactWithRome;
  char enter_x;
  char enter_y;
  short walkerId;
@@ -1105,7 +1109,7 @@ struct Building
  char walkerSpawnDelay;
  char byte_94BD6C;
  char hasFountain;
- char byte_94BD6E;
+ char waterDep;
  short warehouse_prevStorage;
  short warehouse_nextStorage;
  short industry_unitsStored;
@@ -1114,16 +1118,51 @@ struct Building
  short fireRisk;
  short damageRisk;
  short industry_outputGood;
- short house_theater_amphi;
+ short house_theater_amphi_wine;
  short house_amphiGlad_colo;
  short house_coloLion_hippo;
  short house_school_library;
  short house_academy_barber;
  short granary_capacity[4];
- short word_94BD8E;
+ short house_wheat;
  short gridOffset;
  short wharf_hasBoat_house_evolveStatusDesir;
  short house_pottery;
+ short house_oil;
+ short house_furniture;
+ short house_wine;
+ short house_vegetables;
+ short size;
+ short formationId;
+ short placedSequenceNumber;
+ char byte_always0;
+ short cityId;
+ short workersEffectivity;
+ short burningRuinStep;
+ char house_bathhouse_dock_numships_entert_days;
+ char byte_94BDBB;
+ char haveProblems;
+ char house_entertainment;
+ char house_numGods;
+ char house_education;
+ char house_clinic;
+ char house_hospital_entert_days2;
+ char house_mercury;
+ char house_neptune;
+ char house_mars;
+ char house_venus;
+ char byte_94BDB9;
+ char hasRoadAccess;
+ char haveRoadnet;
+ char house_isMerged;
+ char desirability;
+ char adjacentToWater;
+ char byte_94BD84;
+ char byte_94BD85;
+ char house_health;
+ char house_ceres;
+ char house_taxcollector;
+ char byte_94BD7D;
 };
 
 static const int MAX_BUILDINGS = 2000;
@@ -1171,6 +1210,20 @@ int prosperity;
 int numPeople;
 int tax;
 };
+
+struct ModelBuilding
+{
+  short cost;
+  int desirability;
+  int des_step;
+  int des_stepSize;
+  int des_range;
+  unsigned int laborers;
+  int dword_5F6DD4;
+  int dword_5F7814;
+};
+
+static ModelBuilding model_buildings[100];
 
 struct Empire
 {

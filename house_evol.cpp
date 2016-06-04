@@ -2,7 +2,7 @@
 #include "defs.h"
 #include "variables.h"
 
-void __cdecl fun_decayService_culture()
+void __cdecl decayService_culture()
 {
   signed int i; // [sp+4Ch] [bp-4h]@1
 
@@ -12,22 +12,22 @@ void __cdecl fun_decayService_culture()
     {
       if ( buildings[i].house_size )
       {
-        if ( _LOBYTE(buildings[i].house_theater_amphi) <= 1 )
-          _LOBYTE(buildings[i].house_theater_amphi) = 0;
+        if ( _LOBYTE(buildings[i].house_theater_amphi_wine) <= 1 )
+          _LOBYTE(buildings[i].house_theater_amphi_wine) = 0;
         else
-          --_LOBYTE(buildings[i].house_theater_amphi);
+          --_LOBYTE(buildings[i].house_theater_amphi_wine);
 
-        if ( _HIBYTE(buildings[i].house_theater_amphi) <= 1 )
-          _HIBYTE(buildings[i].house_theater_amphi) = 0;
+        if ( _HIBYTE(buildings[i].house_theater_amphi_wine) <= 1 )
+          _HIBYTE(buildings[i].house_theater_amphi_wine) = 0;
         else
-          --_HIBYTE(buildings[i].house_theater_amphi);
+          --_HIBYTE(buildings[i].house_theater_amphi_wine);
 
         if ( _LOBYTE(buildings[i].house_amphiGlad_colo) <= 1 )
           _LOBYTE(buildings[i].house_amphiGlad_colo) = 0;
         else
           --_LOBYTE(buildings[i].house_amphiGlad_colo);
 
-        if ( (signed int)_HIBYTE(buildings[i].house_amphiGlad_colo) <= 1 )
+        if ( _HIBYTE(buildings[i].house_amphiGlad_colo) <= 1 )
           _HIBYTE(buildings[i].house_amphiGlad_colo) = 0;
         else
           --_HIBYTE(buildings[i].house_amphiGlad_colo);
@@ -37,7 +37,7 @@ void __cdecl fun_decayService_culture()
         else
           --_LOBYTE(buildings[i].house_school_library);
 
-        if ( (signed int)_HIBYTE(buildings[i].house_school_library) <= 1 )
+        if ( _HIBYTE(buildings[i].house_school_library) <= 1 )
           _HIBYTE(buildings[i].house_school_library) = 0;
         else
           --_HIBYTE(buildings[i].house_school_library);
@@ -47,7 +47,7 @@ void __cdecl fun_decayService_culture()
         else
           --_LOBYTE(buildings[i].house_school_library);
 
-        if ( (signed int)_HIBYTE(buildings[i].house_school_library) <= 1 )
+        if ( _HIBYTE(buildings[i].house_school_library) <= 1 )
           _HIBYTE(buildings[i].house_school_library) = 0;
         else
           --_HIBYTE(buildings[i].house_school_library);
@@ -57,44 +57,46 @@ void __cdecl fun_decayService_culture()
         else
           --_LOBYTE(buildings[i].house_academy_barber);
 
-        if ( (signed int)_HIBYTE(buildings[i].house_academy_barber) <= 1 )
+        if ( _HIBYTE(buildings[i].house_academy_barber) <= 1 )
           _HIBYTE(buildings[i].house_academy_barber) = 0;
         else
           --_HIBYTE(buildings[i].house_academy_barber);
 
-        if ( (signed int)(unsigned char)building_64_house_clinic[128 * i] <= 1 )
-          building_64_house_clinic[128 * i] = 0;
+        if ( buildings[i].house_clinic <= 1 )
+          buildings[i].house_clinic = 0;
         else
-          --building_64_house_clinic[128 * i];
+          --buildings[i].house_clinic;
 
-        if ( (signed int)(unsigned char)building_65_house_bathhouse_dock_numships_entert_days[128 * i] <= 1 )
-          building_65_house_bathhouse_dock_numships_entert_days[128 * i] = 0;
+        if ( buildings[i].house_bathhouse_dock_numships_entert_days <= 1 )
+          buildings[i].house_bathhouse_dock_numships_entert_days = 0;
         else
-          --building_65_house_bathhouse_dock_numships_entert_days[128 * i];
-        if ( (signed int)(unsigned char)building_66_house_hospital_entert_days2[128 * i] <= 1 )
-          building_66_house_hospital_entert_days2[128 * i] = 0;
+          --buildings[i].house_bathhouse_dock_numships_entert_days;
+        if ( buildings[i].house_hospital_entert_days2 <= 1 )
+          buildings[i].house_hospital_entert_days2 = 0;
         else
-          --building_66_house_hospital_entert_days2[128 * i];
-        if ( (signed int)(unsigned char)building_67_house_ceres[128 * i] <= 1 )
-          building_67_house_ceres[128 * i] = 0;
+          --buildings[i].house_hospital_entert_days2;
+        if ( buildings[i].house_ceres <= 1 )
+          buildings[i].house_ceres = 0;
         else
-          --building_67_house_ceres[128 * i];
-        if ( (signed int)(unsigned char)building_68_house_neptune[128 * i] <= 1 )
-          building_68_house_neptune[128 * i] = 0;
+          --buildings[i].house_ceres;
+        if ( buildings[i].house_neptune <= 1 )
+          buildings[i].house_neptune = 0;
         else
-          --building_68_house_neptune[128 * i];
-        if ( (signed int)(unsigned char)building_69_house_mercury[128 * i] <= 1 )
-          building_69_house_mercury[128 * i] = 0;
+          --buildings[i].house_neptune;
+        if ( buildings[i].house_mercury <= 1 )
+          buildings[i].house_mercury = 0;
         else
-          --building_69_house_mercury[128 * i];
-        if ( (signed int)(unsigned char)building_6a_house_mars[128 * i] <= 1 )
-          building_6a_house_mars[128 * i] = 0;
+          --buildings[i].house_mercury;
+
+        if ( buildings[i].house_mars <= 1 )
+          buildings[i].house_mars = 0;
         else
-          --building_6a_house_mars[128 * i];
-        if ( (signed int)(unsigned char)building_6b_house_venus[128 * i] <= 1 )
-          building_6b_house_venus[128 * i] = 0;
+          --buildings[i].house_mars;
+
+        if ( buildings[i].house_venus <= 1 )
+          buildings[i].house_venus = 0;
         else
-          --building_6b_house_venus[128 * i];
+          --buildings[i].house_venus;
       }
     }
   }
@@ -124,7 +126,7 @@ void fun_determineHouseEvolveText(int buildingId)
   int v20; // [sp+98h] [bp-4h]@80
 
   v19 = buildings[buildingId].level_resourceId;
-  desirability = building_7a_desirability[128 * buildingId];
+  desirability = buildings[buildingId].desirability;
 
   if ( desirability > model_houses[v19].des_devolve[0] )
     desirabilityMet = desirability >= model_houses[v19].des_evolve;
@@ -159,7 +161,7 @@ void fun_determineHouseEvolveText(int buildingId)
     _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 2;
     return;
   }
-  if ( reqEntertainment <= building_6e_house_entertainment[128 * buildingId] )
+  if ( reqEntertainment <= buildings[buildingId].house_entertainment )
   {
     if ( reqFoodTypes > numFoods )
     {
@@ -179,7 +181,7 @@ void fun_determineHouseEvolveText(int buildingId)
         return;
       }
     }
-    if ( reqEducation > building_6f_house_education[128 * buildingId] )
+    if ( reqEducation > buildings[buildingId].house_education )
     {
       if ( reqEducation == 1 )
       {
@@ -208,7 +210,7 @@ void fun_determineHouseEvolveText(int buildingId)
         }
       }
     }
-    if ( model_houses[v19].bathhouse > (unsigned char)building_65_house_bathhouse_dock_numships_entert_days[128 * buildingId] )
+    if ( model_houses[v19].bathhouse > buildings[buildingId].house_bathhouse_dock_numships_entert_days )
     {
       _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 18;
       return;
@@ -218,7 +220,7 @@ void fun_determineHouseEvolveText(int buildingId)
       _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 19;
       return;
     }
-    if ( reqReligion > building_71_house_numGods[128 * buildingId] )
+    if ( reqReligion > buildings[buildingId].house_numGods )
     {
       if ( reqReligion == 1 )
       {
@@ -241,19 +243,19 @@ void fun_determineHouseEvolveText(int buildingId)
       _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 23;
       return;
     }
-    if ( reqHealth <= building_70_house_health[128 * buildingId] )
+    if ( reqHealth <= buildings[buildingId].house_health )
     {
-      if ( model_houses[v19].oil > building_54_house_oil[64 * buildingId] )
+      if ( model_houses[v19].oil > buildings[buildingId].house_oil )
       {
         _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 27;
         return;
       }
-      if ( model_houses[v19].furniture > building_56_house_furniture[64 * buildingId] )
+      if ( model_houses[v19].furniture > buildings[buildingId].house_furniture )
       {
         _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 28;
         return;
       }
-      if ( reqWine > building_52_house_wine[64 * buildingId] )
+      if ( reqWine > buildings[buildingId].house_wine )
       {
         _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 29;
         return;
@@ -290,7 +292,7 @@ void fun_determineHouseEvolveText(int buildingId)
           _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 32;
           return;
         }
-        if ( v15 <= building_6e_house_entertainment[128 * buildingId] )
+        if ( v15 <= buildings[buildingId].house_entertainment )
         {
           if ( v7 > numFoods )
           {
@@ -310,7 +312,7 @@ void fun_determineHouseEvolveText(int buildingId)
               return;
             }
           }
-          if ( v13 > building_6f_house_education[128 * buildingId] )
+          if ( v13 > buildings[buildingId].house_education )
           {
             if ( v13 == 1 )
             {
@@ -339,7 +341,7 @@ void fun_determineHouseEvolveText(int buildingId)
               }
             }
           }
-          if ( model_houses[v20].bathhouse > (unsigned char)building_65_house_bathhouse_dock_numships_entert_days[128 * buildingId] )
+          if ( model_houses[v20].bathhouse > buildings[buildingId].house_bathhouse_dock_numships_entert_days )
           {
             _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 48;
             return;
@@ -349,7 +351,7 @@ void fun_determineHouseEvolveText(int buildingId)
             _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 49;
             return;
           }
-          if ( v11 <= building_71_house_numGods[128 * buildingId] )
+          if ( v11 <= buildings[buildingId].house_numGods )
             goto LABEL_154;
           if ( v11 == 1 )
           {
@@ -366,13 +368,13 @@ void fun_determineHouseEvolveText(int buildingId)
 LABEL_154:
             if ( model_houses[v20].barber <= _HIBYTE(buildings[buildingId].house_academy_barber) )
             {
-              if ( v9 <= building_70_house_health[128 * buildingId] )
+              if ( v9 <= buildings[buildingId].house_health )
               {
-                if ( model_houses[v20].oil <= building_54_house_oil[64 * buildingId] )
+                if ( model_houses[v20].oil <= buildings[buildingId].house_oil )
                 {
-                  if ( model_houses[v20].furniture <= building_56_house_furniture[64 * buildingId] )
+                  if ( model_houses[v20].furniture <= buildings[buildingId].house_furniture )
                   {
-                    if ( v5 <= building_52_house_wine[64 * buildingId] )
+                    if ( v5 <= buildings[buildingId].house_wine )
                     {
                       if ( v5 <= 1 || city_inform[ciid].numWineTypesAvailable[0] >= 2 )
                       {
@@ -410,7 +412,7 @@ LABEL_154:
                 }
                 else
                 {
-                  if ( building_64_house_clinic[128 * buildingId] )
+                  if ( buildings[buildingId].house_clinic )
                     _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 55;
                   else
                     _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 56;
@@ -429,7 +431,7 @@ LABEL_154:
         }
         else
         {
-          if ( building_6e_house_entertainment[128 * buildingId] )
+          if ( buildings[buildingId].house_entertainment )
           {
             if ( v15 >= 10 )
             {
@@ -479,7 +481,7 @@ LABEL_154:
       }
       else
       {
-        if ( building_64_house_clinic[128 * buildingId] )
+        if ( buildings[buildingId].house_clinic )
           _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 25;
         else
           _HIBYTE(buildings[buildingId].wharf_hasBoat_house_evolveStatusDesir) = 26;
@@ -488,7 +490,7 @@ LABEL_154:
   }
   else
   {
-    if ( building_6e_house_entertainment[128 * buildingId] )
+    if ( buildings[buildingId].house_entertainment )
     {
       if ( reqEntertainment >= 10 )
       {
